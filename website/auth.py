@@ -1,4 +1,7 @@
-from flask import Blueprint, render_template, request, flash
+from flask import Blueprint, render_template, request, flash, redirect, url_for
+from .models import User
+from werkzeug.security import generate_password_hash, check_password_hash
+from . import db
 
 auth = Blueprint('auth', __name__)
 
@@ -12,8 +15,19 @@ users = [
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
-    data = request.form
-    print(data)
+    if request.method == 'POST':
+        email = request.form.get('email')
+        password = request.form.get('password')
+
+        user = User.query.filter_by(email = email).first()
+        if user:
+            if check_password_hash(user.password, password):
+                flash('logged in successfully!', category='success')
+            else:
+                flash('Incorrect password', category = 'error')
+        else:
+            flash('No user found', category = 'error')
+            
     return render_template("login.html", text='test string', users=users)
 
 @auth.route('/logout')
@@ -27,8 +41,11 @@ def signup():
         firstname = request.form.get('firstname')
         password01 = request.form.get('password01')
         password02 = request.form.get('password02')
-
-        if len(email) < 4:
+        
+        user = User.query.filter_by(email = email).first()
+        if user:
+            flash('Email taken', category='error')
+        elif len(email) < 4:
             flash('Email must be greater than 4 characters', category = 'error')
         elif len(firstname) < 2:
             flash('Name must be longer than 1 character', category = 'error')
@@ -38,6 +55,9 @@ def signup():
             flash('Password must be at least 8 characters', category = 'error')
         else:
             flash('Account Created!', category = 'success')
-            #add user to database
+            new_user = User(email=email, first_name=firstname, password = generate_password_hash(password01, method='sha256'))
+            db.session.add(new_user)
+            db.session.commit()
+            return redirect(url_for('views.home'))
 
     return render_template("signup.html")
