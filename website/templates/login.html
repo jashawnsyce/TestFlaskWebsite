@@ -1,8 +1,8 @@
 {% extends "base.html" %} {% block title %}Log in{% endblock %}
 
 {% block content%}
-<form method="post">
-    <h3>Log In</h3>
+<form class="pb-2 ps-2 border border-primary  border-3 rounded" method="post">
+    <h3 class="text-center" >Log In</h3>
     <div>
         <label for="email">Email Address</label>
         <input type="email" id="email" name="email" placeholder="Enter E-mail">
@@ -12,6 +12,6 @@
         <input type="password" id="password" name="password" placeholder="Enter Password">
     </div>
     <br />
-    <button type="submit">Log in</button>
+    <button class="btn btn-primary" type="submit">Log in</button>
 </form>
 {% endblock %}

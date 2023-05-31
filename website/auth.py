@@ -5,13 +5,6 @@ from . import db
 
 auth = Blueprint('auth', __name__)
 
-users = [
-'Jay',
-'Kilien',
-'Link',
-'Sheik'
-]
-
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
@@ -28,7 +21,7 @@ def login():
         else:
             flash('No user found', category = 'error')
             
-    return render_template("login.html", text='test string', users=users)
+    return render_template("login.html")
 
 @auth.route('/logout')
 def logout():
