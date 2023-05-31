@@ -16,8 +16,8 @@
             <div class="ms-3 mt-2 collapse navbar-collapse" id="main-nav">
                 <ul class="navbar-nav">
                     {% if user.is_authenticated %}
-                    <li class="nav-item"><a class="btn btn-primary nav-link" id="home" href="/">Home</a></li>
-                    <li class="nav-item"><a class="btn btn-primary nav-link" id="logout" href="logout">Logout {{user.first_name}}</a></li>
+                    <li class="nav-item"><a class="btn btn-primary nav-link text-white" id="home" href="/">Home</a></li>
+                    <li class="nav-item"><a class="btn btn-primary nav-link" id="logout" href="logout">Logout {{user.username}}</a></li>
                     {% else %}
                     <li class="nav-item"><a class="btn btn-primary nav-link" id="login" href="login">Login</a></li>
                     <li class="nav-item"><a class="btn btn-primary nav-link" id="signup" href="signup">Sign Up</a></li>
