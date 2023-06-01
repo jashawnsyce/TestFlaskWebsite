@@ -9,19 +9,24 @@
 <ul class="list-group list-group-flush" id="notes">
     {% for note in user.notes %}
         <li class="list-group-item my-1 rounded bg-primary text-white">
-            <small>Note by {{user.username}} on {{note.date}}</small>
+            <small>Note by <b><a class="text-white" href="{{ url_for('views.user', username=user.username) }}">{{user.username}}</a></b> on {{note.date}}</small>
             <br />
             {{ note.data }}
+        {% if current_user.id == user.id %}
             <button type="button" class="btn-small close bg-danger" onclick="">
                 <span aria-hidden="true">&times;<span>
             </button>
+        {% endif %}
         </li>
     {% endfor %}
 </ul>
-<form class="pb-2 px-2 border border-primary  border-3 rounded" method="post">
-    <h3 class="text-center" >Add note</h3>
-    <textarea class="form-control" id="note" name="note" placeholder="Enter note"></textarea>
-    <br />
-    <button class="btn btn-primary" type="submit">Add note</button>
-</form>
+{% if current_user.id == user.id %}
+    <form class="pb-2 px-2 border border-primary  border-3 rounded" method="post">
+        <h3 class="text-center" >Add note</h3>
+        <textarea class="form-control" id="note" name="note" placeholder="Enter note"></textarea>
+        <br />
+        <button class="btn btn-primary" type="submit">Add note</button>
+    </form>
+{% endif %}
+
 {% endblock %} 

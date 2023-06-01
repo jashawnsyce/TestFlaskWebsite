@@ -5,13 +5,18 @@
 <h1 class="display-2 text-center bg-primary rounded">
     NoteTaker
 </h1>
-{% for note in notelist %}
-    {% for user in userlist %}
-        {% if user.id == note.user_id %}
-            <h3>{{ user.username }} posted: </h3>
-            <p>{{note.data}}</p>
-        {% endif %}
+<ul>
+    {% for note in notelist %}
+        {% for user in userlist %}
+            {% if user.id == note.user_id %}
+                <li class="list-group-item my-1 rounded bg-primary text-white">
+                    <small>Note by <b><a class="text-white" href="{{ url_for('views.user', username=user.username) }}">{{user.username}}</a></b> on {{note.date}}</small>
+                    <br />
+                    {{ note.data }}
+                </li>
+            {% endif %}
+        {% endfor %}
     {% endfor %}
-{% endfor %}
+</ul>
 
 {% endblock %} 
