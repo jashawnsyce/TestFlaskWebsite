@@ -11,12 +11,15 @@
         <li class="list-group-item my-1 rounded bg-primary text-white">
             <small>Note by <b><a class="text-white" href="{{ url_for('views.user', username=user.username) }}">{{user.username}}</a></b> on {{note.date}}</small>
             <br />
-            {{ note.data }}
-        {% if current_user.id == user.id %}
-            <button type="button" class="btn-small close bg-danger" onclick="">
-                <span aria-hidden="true">&times;<span>
-            </button>
-        {% endif %}
+            <div class="justify-content-between">
+                {{ note.data }}
+                {% if current_user.id == user.id %}
+                    <button type="button" class="btn btn-sm close bg-danger text-white" onclick="">
+                        <span aria-hidden="true">DELETE<span>
+                    </button>
+                {% endif %}
+            </div>
+            
         </li>
     {% endfor %}
 </ul>
